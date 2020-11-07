@@ -1,0 +1,16 @@
+<div class = "my-3 p-3 bg-white rounded box-shadow">
+  <% if @orders.any? %>
+    <h6 class="border-bottom border-gray pb-2 mb-0">Orders</h6>
+    <% @orders.each do |order| %>
+      <div class="media text-muted pt-3">
+        <p class= "media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">Name: <%= User.find(order.user_id).name %></strong>
+        Main course: <%= order.main_id == 0 ? 'None' : Item.find(order.main_id).name  %><br>
+      First course: <%= order.first_id == 0 ? 'None' : Item.find(order.first_id).name  %><br>
+      Drink: <%= order.drink_id == 0 ? 'None' : Item.find(order.drink_id).name  %><br>
+      Total price: <%= order.price %>$
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,24 @@
+<div id="itemf">
+<%= form_for @item, url: itemc_url do |f| %>
+  
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: '' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :price %>
+    <%= f.number_field :price, class: '' %>
+  </div>
+   <div class="form-group">
+    <label for="exampleFormControlSelect2">Select type</label>
+    <%= f.select(:d_type, ["Main course", "First course", "Drinks"],{ :multiple => false, :size => 3 }) %>
+   </div>
+  
+   <div class="form-group">
+    <%= f.hidden_field :image, value: @item.cached_image_data %>
+    <%= f.file_field :image %>  
+   </div>
+  <%= f.submit 'Add', class: 'btn btn-primary' %>
+<% end %>
+</div>

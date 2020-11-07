@@ -1,0 +1,60 @@
+<h1 class = "border-bottom border-gray pb-2 mb-0" style="text-align: center;">Edit today's menu</h1>
+<br>
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">You can add your course here</h5>
+    <p class="card-text">You will have to set a proper name, price a nice shot of your dish</p>
+    <%= link_to 'Take me there', items_new_path, :class => 'btn btn-primary' %>
+  </div>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Main course</h2>
+<div class="container">
+  <div class="row">
+    <% if @main_course.any? %>
+      <% @main_course.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+            <%= link_to "delete", '/maind/' + item.id.to_s, :class => "btn btn-primary",:method => :delete,:confirm => "Are you sure?" %>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">First Course</h2>
+<div class="container">
+  <div class="row">
+    <% if @first_course.any? %>
+      <% @first_course.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+              <%= link_to "delete", '/maind/' + item.id.to_s, :class => "btn btn-primary",:method => :delete,:confirm => "Are you sure?" %>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Drinks</h2>
+<div class="container">
+  <div class="row">
+    <% if @drinks.any? %>
+      <% @drinks.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+            <%= link_to "delete", '/maind/' + item.id.to_s, :class => "btn btn-primary",:method => :delete,:confirm => "Are you sure?" %>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

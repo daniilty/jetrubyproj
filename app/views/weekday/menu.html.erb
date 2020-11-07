@@ -1,0 +1,86 @@
+<div id="ordert">
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Important note</h5>
+    <p class="card-text">You can only choose one dish from every section</p>
+  </div>
+</div>
+<%= form_for @order, url: orders_create_url do |f| %>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Main course</h2>
+<div class="container">
+  <div class="row">
+    <% if @main_course.any? %>
+      <% @main_course.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Choose an option</h2>
+<%= f.select(:main_id, @main_course.collect {|m| [ m.name, m.id ] }.insert(0,"Nothing")) %>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">First Course</h2>
+<div class="container">
+  <div class="row">
+    <% if @first_course.any? %>
+      <% @first_course.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Choose an option</h2>
+<%= f.select(:first_id, @first_course.collect {|m| [ m.name, m.id ] }.insert(0,"Nothing")) %>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Drinks</h2>
+<div class="container">
+  <div class="row">
+    <% if @drinks.any? %>
+      <% @drinks.each do |item| %>
+        <div class="card" style="width: 18rem; margin: 5px; text-align: center;">
+            <% unless item.image_data.nil?%>
+              <%= image_tag(item.image_url, :class => 'card-img-top')%>
+            <% end %>
+              <h5 class="card-title" ><%= item.name %></h5>
+              <p class="card-text"><b>Price: </b><%= item.price %> $</p>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<h2 class="border-bottom border-gray pb-2 mb-0" style = "text-align: center;">Choose an option</h2>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :menu_id, value: @menu.id %>
+<%= f.select(:drink_id, @drinks.collect {|m| [ m.name, m.id ] }.insert(0,"Nothing")) %>
+<br>
+<%= f.submit 'Create an order' %>
+<% end %>
+<% if is_adm %>
+<div class = "my-3 p-3 bg-white rounded box-shadow">
+  <% if @orders.any? %>
+    <h6 class="border-bottom border-gray pb-2 mb-0">Orders</h6>
+    <% @orders.each do |order| %>
+      <div class="media text-muted pt-3">
+        <p class= "media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">Name: <%= User.find(order.user_id).name %></strong>
+        Main course: <%= order.main_id == 0 ? 'None' : Item.find(order.main_id).name  %><br>
+      First course: <%= order.first_id == 0 ? 'None' : Item.find(order.first_id).name  %><br>
+      Drink: <%= order.drink_id == 0 ? 'None' : Item.find(order.drink_id).name  %><br>
+      Total price: <%= order.price %>$
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
+</div>
